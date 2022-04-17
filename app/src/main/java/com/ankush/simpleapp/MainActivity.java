@@ -1,5 +1,9 @@
 package com.ankush.simpleapp;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Uri imageUri;
     ImagePicker imagePicker;
 
+    ActivityResultLauncher<String> mGetContent;
     Button home,edit,filter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +53,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                imagePicker.pickFromStorage(imageCallEdit());
-
-            }
-        });
-
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
                 imagePicker.pickFromStorage(imageCallFilter());
+
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mGetContent.launch("image/*");
+
+            }
+        });
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("DATA",result.toString());
+                startActivityForResult(intent,101);
 
             }
         });
@@ -90,22 +103,24 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private Function1<ImageResult<? extends Uri>, Unit> imageCallEdit() {
-        return imageResult -> {
-            if (imageResult instanceof ImageResult.Success) {
-                Uri uri = ((ImageResult.Success<Uri>) imageResult).getValue();
-                // Error when too big img come   so applying img lowResolution
-                // img.setImageURI(uri);
-                Intent intent = new Intent(MainActivity.this,EditActivity.class);
-                intent.putExtra("imageUri", uri);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                startActivity(intent);
+        if(resultCode==-1 && requestCode==101)
+        {
+            String result=data.getStringExtra("RESULT");
+            Uri resUri = null;
 
-            } else {
-                String errorString = ((ImageResult.Failure) imageResult).getErrorString();
-                Toast.makeText(MainActivity.this, errorString, Toast.LENGTH_LONG).show();
+            if(result!=null)
+            {
+                resUri=Uri.parse(result);
             }
-            return null;
-        };
+
+            //img.setImageURI(resUri);
+            // this is how we get img back from Lib() if you wish then stored in photos other for now
+            // dont do any thing !
+        }
     }
+
 }
