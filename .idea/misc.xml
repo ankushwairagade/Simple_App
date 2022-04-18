@@ -7,7 +7,10 @@
         <entry key="app/src/main/res/layout/activity_edit.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_filter.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_image_saved.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/custom_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/imageview_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_container_filter.xml" value="0.33" />
       </map>
     </option>

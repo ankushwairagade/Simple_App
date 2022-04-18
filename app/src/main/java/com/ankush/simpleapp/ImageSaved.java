@@ -1,6 +1,5 @@
 package com.ankush.simpleapp;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -11,57 +10,44 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.yalantis.ucrop.UCrop;
-
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 import java.util.UUID;
 
-public class EditActivity extends AppCompatActivity {
-    ImageView imageView , backtohome;
+public class ImageSaved extends AppCompatActivity {
+    ImageView imageView;
+    Button cancel , added;
     String result;
     Uri fileuri;
-
-    Button added,cancel;
     OutputStream outputStream;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
-        imageView=findViewById(R.id.imageView);
-        backtohome = findViewById(R.id.imageBack);
-
-        backtohome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_image_saved);
 
         readIntent();
 
-        UCrop.Options options = new UCrop.Options();
-
-        String dest_uri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
-        UCrop.of(fileuri,Uri.fromFile(new File(getCacheDir(),dest_uri)))
-                .withOptions(options)
-                .withAspectRatio(0,0)
-                .useSourceImageAspectRatio()
-                .withMaxResultSize(2000,2000)
-                .start(EditActivity.this);
-
-        added = findViewById(R.id.saved);
+        imageView = findViewById(R.id.previwe);
+        cancel = findViewById(R.id.cancel);
+        added = findViewById(R.id.gallery);
+        imageView.setImageURI(fileuri);
         added.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //saveImage();
+
+
                 BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
@@ -78,7 +64,6 @@ public class EditActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     private void readIntent() {
@@ -90,23 +75,44 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void saveImage() {
 
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            final Uri resultUri = UCrop.getOutput(data);
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("RESULT",resultUri+"");
-            setResult(-1,returnIntent);
-            imageView.setImageURI(resultUri);
-          //  finish();
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
 
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            final Throwable cropError = UCrop.getError(data);
+
+
+        File filepath = Environment.getExternalStorageDirectory();
+        File dir = new File(filepath.getAbsoluteFile()+"/SaveImage/");
+
+        if (!dir.exists()){
+
+            dir.mkdir();
+
+        }
+
+
+
+        File file = new File(dir,System.currentTimeMillis()+".jpg");
+        try {
+            outputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        bitmap.compress(Bitmap.CompressFormat.PNG,90,outputStream);
+        Toast.makeText(ImageSaved.this,"Successfuly Saved",Toast.LENGTH_SHORT).show();
+
+        try {
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 
     private boolean saveImageToExternalStorage(String imgName, Bitmap bmp){
 
@@ -123,6 +129,7 @@ public class EditActivity extends AppCompatActivity {
         }
 
         ContentValues contentValues = new ContentValues();
+
         contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, imgName + ".jpg");
         contentValues.put(MediaStore.Images.Media.MIME_TYPE,"image/jpeg");
         Uri imageUri = resolver.insert(ImageCollection, contentValues);
@@ -133,7 +140,7 @@ public class EditActivity extends AppCompatActivity {
             bmp.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
             Objects.requireNonNull(outputStream);
 
-            Toast.makeText(EditActivity.this,"saved Image Successfully" ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(ImageSaved.this,"saved Image Successfully" ,Toast.LENGTH_SHORT).show();
 
             return true;
 

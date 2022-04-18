@@ -98,10 +98,12 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 String errorString = ((ImageResult.Failure) imageResult).getErrorString();
                  Toast.makeText(MainActivity.this, errorString, Toast.LENGTH_LONG).show();
+
             }
             return null;
         };
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

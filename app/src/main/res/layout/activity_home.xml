@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
+
     <LinearLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:src="@drawable/ic_back"
-            app:tint="@color/white"/>
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="0dp"
@@ -30,12 +31,25 @@
             android:layout_weight="1"
             android:text="Saved Photo"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"/>
-
-
-
-
+            android:textSize="@dimen/_14sdp" />
     </LinearLayout>
+
+
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_450sdp"
+        android:layout_marginTop="9dp"
+        android:horizontalSpacing="2dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/selfie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
+        app:layout_constraintVertical_bias="0.601" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/selfie"
         android:layout_width="@dimen/_138sdp"
@@ -64,5 +78,7 @@
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
