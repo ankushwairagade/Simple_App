@@ -5,7 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FilterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layoutHeader"
@@ -22,7 +28,7 @@
                 android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_22sdp"
                 android:src="@drawable/ic_back"
-                app:tint="@color/white"/>
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="0dp"
@@ -32,7 +38,7 @@
                 android:layout_weight="1"
                 android:text="Apply Filter"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"/>
+                android:textSize="@dimen/_14sdp" />
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -40,37 +46,149 @@
                 android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_22sdp"
                 android:src="@drawable/ic_done"
-                android:tint="@color/white"/>
+                android:tint="@color/white" />
 
         </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/filtersRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/filtersRecyclerView"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_105sdp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingStart="0dp"
-            android:paddingLeft="0dp"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_8sdp"
-            android:paddingRight="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_container_filter" />
+            android:layout_height="550dp"
+            android:scaleType="fitCenter"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="12dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="387dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.891"
+        tools:layout_editor_absoluteX="12dp"
+        tools:ignore="MissingConstraints,NotSibling">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Nofilter"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="No Filter" />
+
+            <Button
+                android:id="@+id/filter1"
+                android:layout_width="150dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="filter 1" />
+
+            <Button
+                android:id="@+id/filter2"
+                android:layout_width="150dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="filter 2" />
+
+            <Button
+                android:id="@+id/filter3"
+                android:layout_width="148dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="filter 3" />
+
+            <Button
+                android:id="@+id/filter4"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 4" />
+            <Button
+                android:id="@+id/filter5"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 5" />
+
+            <Button
+                android:id="@+id/filter6"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 6" />
+            <Button
+                android:id="@+id/filter7"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 7" />
+            <Button
+                android:id="@+id/filter8"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 8" />
+            <Button
+                android:id="@+id/filter9"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 9" />
+            <Button
+                android:id="@+id/filter10"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 10" />
+            <Button
+                android:id="@+id/filter11"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 11" />
+            <Button
+                android:id="@+id/filter12"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Filter 12" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

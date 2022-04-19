@@ -35,9 +35,6 @@ public class HomeActivity extends AppCompatActivity {
     ImagePicker imagePicker;
     View backtohome;
     Button selfie , gallary;
-   RecyclerView recyclerView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         imagePicker = new ImagePicker(HomeActivity.this);
-
         selfie = findViewById(R.id.selfie);
         gallary = findViewById(R.id.gallery);
         backtohome = findViewById(R.id.imageBack);
@@ -57,24 +53,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        // this will handle Gallery and Camera Button
         selfie.setOnClickListener(v -> imagePicker.takeFromCamera(imageCallBack()));
         gallary.setOnClickListener(v -> imagePicker.pickFromStorage(imageCallBack()));
 
 
 
         List<items> itemsList = new ArrayList<>();
-        //  itemsList.add(new items(R.drawable.android_1, ""));
-        //   itemsList.add(new items(R.drawable.android_2, "image_2"));
-        //  itemsList.add(new items(R.drawable.android_3, "image_3"));
-        // itemsList.add(new items(R.drawable.android_4, "image_3"));
 
-
-        ArrayList<String> str= getAllShownImagesPath(this);
+        // Str Getting Array of String from getAllshownImagePath() method and pass to List Array then to CustomAdapter
+         ArrayList<String> str= getAllShownImagesPath(this);
         for (int i = 0; i < str.size(); i++) {
             itemsList.add(new items(str.get(i).toString(),str.get(i)));
 
         }
-
 
         GridView gridView = findViewById(R.id.grid_view);
         CustomAdapter customAdapter = new CustomAdapter(this, R.layout.custom_view, itemsList);
@@ -83,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
+    // Function used to Stored the Image into External Media
     private Function1<ImageResult<? extends Uri>, Unit> imageCallBack() {
         return imageResult -> {
             if (imageResult instanceof ImageResult.Success) {
@@ -103,9 +95,7 @@ public class HomeActivity extends AppCompatActivity {
         };
     }
 
-
-
-
+    // This Function Returns Image Path from Media To Array<String>
     public static ArrayList<String> getAllShownImagesPath(Activity activity) {
         Uri uri;
         Cursor cursor;

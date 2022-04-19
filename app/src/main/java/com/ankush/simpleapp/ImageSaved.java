@@ -42,11 +42,13 @@ public class ImageSaved extends AppCompatActivity {
         cancel = findViewById(R.id.cancel);
         added = findViewById(R.id.gallery);
         imageView.setImageURI(fileuri);
+        cancel = findViewById(R.id.cancel);
+
+
         added.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //saveImage();
-
 
                 BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
@@ -56,8 +58,6 @@ public class ImageSaved extends AppCompatActivity {
                 finish();
             }
         });
-
-        cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class ImageSaved extends AppCompatActivity {
             }
         });
     }
-
+        // Read Intent Passed by Activity_ (Gallery || Selfie )
     private void readIntent() {
         Intent intent=getIntent();
         if(intent.getExtras()!=null)
@@ -75,6 +75,7 @@ public class ImageSaved extends AppCompatActivity {
         }
     }
 
+        // This function is broken due to something wrong
     private void saveImage() {
 
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
@@ -114,6 +115,7 @@ public class ImageSaved extends AppCompatActivity {
         }
     }
 
+    // Function used to Stored the Image into External Media
     private boolean saveImageToExternalStorage(String imgName, Bitmap bmp){
 
         Uri ImageCollection = null;

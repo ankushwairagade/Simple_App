@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends ArrayAdapter<items> {
-    private static final String TAG = "Custoo";
+    private static final String TAG = "Custoo";  // this for Testing purpose
     List<items> items_list = new ArrayList<>();
     int custom_layout_id;
 

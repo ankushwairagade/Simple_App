@@ -48,6 +48,7 @@ public class EditActivity extends AppCompatActivity {
 
         readIntent();
 
+        // Ucrop is OpenSource Library
         UCrop.Options options = new UCrop.Options();
 
         String dest_uri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
@@ -70,7 +71,6 @@ public class EditActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +80,7 @@ public class EditActivity extends AppCompatActivity {
         });
 
     }
-
+// Read Intent Pass by Activity
     private void readIntent() {
         Intent intent=getIntent();
         if(intent.getExtras()!=null)
@@ -107,7 +107,7 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
-
+    // Function used to Stored the Image into External Media
     private boolean saveImageToExternalStorage(String imgName, Bitmap bmp){
 
         Uri ImageCollection = null;

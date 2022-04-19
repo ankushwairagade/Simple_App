@@ -23,10 +23,8 @@ import kotlin.jvm.functions.Function1;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PICK_IMAGE = 1;
-    Uri imageUri;
-    ImagePicker imagePicker;
 
+    ImagePicker imagePicker;
     ActivityResultLauncher<String> mGetContent;
     Button home,edit,filter;
     @Override
@@ -39,12 +37,6 @@ public class MainActivity extends AppCompatActivity {
         edit = findViewById(R.id.edit);
         filter =findViewById(R.id.filter);
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                }
-        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
@@ -83,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+        // This function for Filter Picking Photo from Gallery
     private Function1<ImageResult<? extends Uri>, Unit> imageCallFilter() {
         return imageResult -> {
             if (imageResult instanceof ImageResult.Success) {
